@@ -1,3 +1,5 @@
+import { ResourceControlType } from '@/portainer/access-control/types';
+
 angular.module('portainer.docker').controller('VolumeController', [
   '$scope',
   '$state',
@@ -13,6 +15,12 @@ angular.module('portainer.docker').controller('VolumeController', [
   function ($scope, $state, $transition$, $q, ModalService, VolumeService, ContainerService, Notifications, HttpRequestHelper, StoridgeVolumeService, StoridgeSnapshotService) {
     $scope.storidgeSnapshots = [];
     $scope.storidgeVolume = {};
+
+    $scope.resourceType = ResourceControlType.Volume;
+
+    $scope.onUpdateResourceControlSuccess = function () {
+      $state.reload();
+    };
 
     $scope.removeSnapshot = function (selectedItems) {
       ModalService.confirm({
